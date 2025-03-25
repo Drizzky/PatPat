@@ -11,6 +11,8 @@ const selectPetByIdModel = async (petId) => {
     if (pets.length < 1) {
         generateErrorUtil('Pet not found', 404);
     }
+
+    return pets[0];
 };
 
 export default selectPetByIdModel;

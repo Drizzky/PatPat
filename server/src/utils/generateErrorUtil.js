@@ -5,4 +5,3 @@ const generateErrorUtil = (msg, code) => {
 };
 
 export default generateErrorUtil;
-//bruh
