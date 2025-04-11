@@ -7,7 +7,7 @@ const main = async () => {
     try {
         const pool = await getPool();
 
-        console.log('Creando tablas...');
+        console.log('Creating tables...');
 
         await pool.query(scriptDB);
 

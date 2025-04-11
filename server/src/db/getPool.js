@@ -1,5 +1,5 @@
-'use-strict';
 import mysql from 'mysql2/promise';
+import 'dotenv/config';
 
 const { MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB } = process.env;
 
@@ -23,6 +23,7 @@ const getPool = async () => {
                 user: MYSQL_USER,
                 password: MYSQL_PASS,
                 database: MYSQL_DB,
+                multipleStatements: true,
                 timezone: 'Z',
             });
         }
