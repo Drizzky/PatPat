@@ -1,46 +1,33 @@
 import 'dotenv/config';
-import express from 'express';
-import morgan from 'morgan';
 import cors from 'cors';
+import morgan from 'morgan';
+import express from 'express';
 import fileUpload from 'express-fileupload';
+import fileUploadConfig from './src/config/fileUpload.js';
+
 import userRoutes from './src/routes/userRoutes.js';
-import postRoutes from './src/routes/postRoutes.js';
-import petRoutes from './src/routes/petRoutes.js';
+
+import errorHandler from './src/utils/errorHandler.js';
+import notFoundHandler from './src/utils/errorHandler.js';
 
 const { PORT, UPLOADS_DIR } = process.env;
 
 const app = express();
 
-app.use(morgan('dev'));
-
+// Middleware
 app.use(cors());
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(fileUpload(fileUploadConfig));
 
+// Static Files
 app.use(express.static(UPLOADS_DIR));
 
-app.use(express.json());
-
-app.use(fileUpload());
-
+// Routes
 app.use('/api/users', userRoutes);
-app.use('/api/posts', postRoutes);
-app.use('/api/pets', petRoutes);
 
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(err.httpStatus || 500).send({
-        status: 'error',
-        message: err.message,
-    });
-});
+// Errors
+app.use(errorHandler);
+app.use(notFoundHandler);
 
-app.use((req, res) => {
-    res.status(404).send({
-        status: 'error',
-        message: '404',
-    });
-});
-
-app.listen(PORT, () => {
-    console.log(`Server listening in http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server listening in http://localhost:${PORT}`));
