@@ -1,7 +1,7 @@
 import express from 'express';
 // import authorize from './src/middlewares/authorize.js';
 
-import loginController from '../controllers/users/login-user.js';
+import loginUser from '../controllers/users/loginUser.js';
 
 //creamos un router
 const router = express.Router();
@@ -13,7 +13,7 @@ const router = express.Router();
 // router.put('/validate/:regCode', activateUserController);
 
 // Iniciar sesión de usuario
-router.post('/login', loginController);
+router.post('/login', loginUser);
 
 // // Cambiar contraseña
 // router.post('/password', authorize, updateUserPassController);

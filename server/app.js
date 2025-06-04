@@ -7,9 +7,6 @@ import fileUploadConfig from './src/config/fileUpload.js';
 
 import userRoutes from './src/routes/userRoutes.js';
 
-import errorHandler from './src/utils/errorHandler.js';
-import notFoundHandler from './src/utils/errorHandler.js';
-
 const { PORT, UPLOADS_DIR } = process.env;
 
 const app = express();
@@ -27,7 +24,20 @@ app.use(express.static(UPLOADS_DIR));
 app.use('/api/users', userRoutes);
 
 // Errors
-app.use(errorHandler);
-app.use(notFoundHandler);
+app.use((err, req, res) => {
+  console.error(err);
+  res.status(err.httpStatus || 500).send({
+    status: 'error',
+    message: err.message,
+  });
+});
+
+// 404 not found.
+app.use((req, res) => {
+  res.status(404).send({
+    status: 'error',
+    message: 'Ruta no encontrada',
+  });
+});
 
 app.listen(PORT, () => console.log(`Server listening in http://localhost:${PORT}`));
