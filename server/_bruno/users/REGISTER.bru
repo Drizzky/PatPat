@@ -1,20 +1,20 @@
 meta {
   name: REGISTER
   type: http
-  seq: 1
+  seq: 2
 }
 
 post {
-  url: http://localhost:8000/api/users/register
+  url: {{url}}/api/users/register
   body: json
   auth: inherit
 }
 
 body:json {
   {
-    "name": "camilo",
+    "name": "drizzky",
     "email": "imdrizzky@gmail.com",
-    "password": "password"
+    "password": "12345678"
   }
 }
 

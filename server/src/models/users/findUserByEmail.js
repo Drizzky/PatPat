@@ -2,12 +2,8 @@ import getPool from '../../db/getPool.js';
 
 const findUserByEmail = async (email) => {
   const pool = await getPool();
-  const [users] = await pool.query(
-    `
-        SELECT id, name, email, role, password, isVerified, isBanned FROM users WHERE email = ?';
-        `,
-    [email]
-  );
+  const query = `SELECT id, name, email, role, password, isVerified, isBanned FROM users WHERE email = ? `;
+  const [users] = await pool.query(query, [email]);
   return users[0];
 };
 

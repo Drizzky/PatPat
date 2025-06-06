@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import generateError from '../utils/generateError.js';
+import throwError from '../utils/throwError.js';
 
 const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
 
@@ -22,7 +22,7 @@ const sendEmail = async (email, subject, body) => {
     });
   } catch (err) {
     console.error(err);
-    generateError('Error sending E-mail', 500);
+    throwError('Error sending E-mail', 500);
   }
 };
 
