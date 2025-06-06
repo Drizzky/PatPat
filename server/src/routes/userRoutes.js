@@ -2,12 +2,12 @@ import express from 'express';
 // import authorize from './src/middlewares/authorize.js';
 
 import loginUser from '../controllers/users/loginUser.js';
+import registerUser from '../controllers/users/registerUser.js';
 
 //creamos un router
 const router = express.Router();
 
-// // Registrar un nuevo usuario
-// router.post('/register', registerUserController);
+router.post('/register', registerUser);
 
 // // Validación usuario
 // router.put('/validate/:regCode', activateUserController);

@@ -2,14 +2,12 @@ import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 import getPool from '../../db/getPool.js';
 import sendMail from '../../utils/sendMail.js';
-import generateError from '../../utils/generateError';
+import generateError from '../../utils/generateError.js';
 
 const insertUser = async (name, email, password) => {
   const pool = await getPool();
 
-  let [users] = await pool.query('SELECT id FROM users WHERE email = ?');
-
-  [users] = await pool.query(`SELECT userId FROM users WHERE email = ?`, [email]);
+  const [users] = await pool.query(`SELECT id FROM users WHERE email = ?`, [email]);
 
   if (users.length > 0) {
     generateError('Email already in use.', 409);
@@ -21,8 +19,8 @@ const insertUser = async (name, email, password) => {
 
   await pool.query(
     `INSERT INTO users (name, email, password, regCode, createdAt)
-    VALUES (?, ?, ?, ?, ?)
-    `[(name, email, hashedPass, regCode, now)]
+   VALUES (?, ?, ?, ?, ?)`,
+    [name, email, hashedPass, regCode, now]
   );
 
   const emailSubject = 'Pat² account activation :)';

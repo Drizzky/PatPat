@@ -1,0 +1,27 @@
+meta {
+  name: REGISTER
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/api/users/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "camilo",
+    "email": "imdrizzky@gmail.com",
+    "password": "password"
+  }
+}
+
+docs {
+  {
+  "name": "Camilo",
+  "email": "imdrizzky@gmail.com"
+  "password": "Claudianorena00"
+  }
+}
