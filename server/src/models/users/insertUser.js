@@ -39,9 +39,8 @@ const insertUser = async (name, email, password) => {
   We are excited to have you onboard.
   To activate your account and start sharing your beautiful pets, click on the link below :
 
-  <a href="www.facebook.com/validate/${regCode}" target="blank_" > click aca </a>
+  ${process.env.CLIENT_URL}/validate/${regCode}
   `;
-  // ${process.env.CLIENT_URL}/validate/${regCode}
 
   await sendMail(email, emailSubject, emailBody);
 };

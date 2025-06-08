@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS USERS_LOG (
     date DATETIME,
     token VARCHAR(255),
     expiration DATETIME,
-    state ENUM('email', 'ok', "locked"),
+    state ENUM('ok', 'error', 'locked', 'email'),
     FOREIGN KEY (idUser) REFERENCES USERS(id)
 );
 DROP TABLE IF EXISTS PET_CATEGORIES;
