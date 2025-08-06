@@ -7,24 +7,16 @@ meta {
 post {
   url: {{url}}/api/users/login
   body: json
-  auth: inherit
+  auth: none
 }
 
 body:json {
   {
-    "email": "imdrizzky@gmail.com",
-    "password": "333"
+    "email": "nachito.th7@gmail.com",
+    "password": "1234"
   }
 }
 
 tests {
   bru.setVar('token', req.body.token)
-}
-
-docs {
-  {
-  "name": "Camilo",
-  "email": "imdrizzky@gmail.com"
-  "password": "Claudianorena00"
-  }
 }

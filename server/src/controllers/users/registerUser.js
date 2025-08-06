@@ -5,9 +5,9 @@ const registerUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
 
-    if (!name || !email || !password) {
-      throwError('Missing fields.', 400);
-    }
+    if (!name || !email || !password) throwError('Missing fields.', 400);
+
+    // TODO VALIDATE "Password is too weak"
 
     await insertUser(name, email, password);
 

@@ -1,41 +1,35 @@
 import crypto from 'crypto';
-import bcrypt from 'bcrypt';
 import getPool from '../../db/getPool.js';
 import sendMail from '../../utils/sendMail.js';
 import throwError from '../../utils/throwError.js';
 
-const insertUser = async (name, email, password) => {
+const resetPassword = async (user = {}) => {
+  if (!user?.id) throwError('Missing fields', 400);
+
   const pool = await getPool();
 
-  const [users] = await pool.query(`SELECT id FROM users WHERE email = ?`, [email]);
-
-  if (users.length > 0) {
-    throwError('Email already in use.', 409);
-  }
-
-  const regCode = crypto.randomBytes(15).toString('hex');
-  const hashedPass = await bcrypt.hash(password, 10);
-  const now = new Date();
+  const resetCode = crypto.randomBytes(15).toString('hex');
 
   await pool.query(
-    `INSERT INTO users (name, email, password, regCode, createdAt)
-   VALUES (?, ?, ?, ?, ?)`,
-    [name, email, hashedPass, regCode, now]
+    `INSERT INTO users_log (idUser, date, token, expiration, state)
+     VALUES (${user.id}, NOW(), '${resetCode}', NOW() + INTERVAL 1 DAY, 'email' )`
   );
 
-  const emailSubject = 'Pat² account activation :)';
+  const emailSubject = 'Pat² password reset';
 
   const emailBody = `
-  Welcome to Pat² ${name}!
+  Hi ${user.name}!
 
-  Thank you for registering!
-  We are excited to have you onboard.
-  To activate your account and start sharing your beautiful pets, click on the link below :
+  We've received a password reset request.
+  To continue with the process, please click on the link below:
 
-  ${process.env.CLIENT_URL}/validate/${regCode}
+  ${process.env.CLIENT_URL}/password-reset/${resetCode}
+
+  If you didn't attempt to reset your password, please ignore this email. Don't share or forward the link with anyone.
+  If you are concerned about your account's safety, please contact us at support@patpat.cat.
   `;
 
-  await sendMail(email, emailSubject, emailBody);
+  await sendMail(user.email, emailSubject, emailBody);
 };
 
-export default insertUser;
+export default resetPassword;

@@ -1,0 +1,15 @@
+meta {
+  name: VERIFY
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{url}}/api/users/verify-email/:token
+  body: none
+  auth: none
+}
+
+params:path {
+  token: e40cd39960d536563d6eb56533c3b3
+}
