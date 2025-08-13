@@ -53,7 +53,7 @@ const loginUser = async (req, res, next) => {
     res.status(200);
     res.send({
       status: 'ok',
-      message: 'Logged in successfully',
+      message: 'Welcome! 😻',
       token: token,
     });
   } catch (err) {

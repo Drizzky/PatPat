@@ -3,18 +3,13 @@ import bcrypt from 'bcrypt';
 import getPool from '../../db/getPool.js';
 import sendMail from '../../utils/sendMail.js';
 import throwError from '../../utils/throwError.js';
-import findUserByEmail from './findUserByEmail.js';
 
 const insertUser = async (name = '', email = '', password = '') => {
   if (!name || !email || !password) throwError('Missing fields.', 400);
 
   const pool = await getPool();
 
-  const user = await findUserByEmail(email);
-
-  if (user) throwError('Email already in use.', 409);
-
-  const token = crypto.randomBytes(15).toString('hex');
+  const token = crypto.randomBytes(32).toString('hex');
   const hashedPass = await bcrypt.hash(password, 10);
 
   const [result] = await pool.query(

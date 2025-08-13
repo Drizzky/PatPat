@@ -1,5 +1,7 @@
+import findUserByEmail from '../../models/users/findUserByEmail.js';
 import insertUser from '../../models/users/insertUser.js';
 import throwError from '../../utils/throwError.js';
+import validatePassword from '../../utils/validatePassword.js';
 
 const registerUser = async (req, res, next) => {
   try {
@@ -7,7 +9,11 @@ const registerUser = async (req, res, next) => {
 
     if (!name || !email || !password) throwError('Missing fields.', 400);
 
-    // TODO VALIDATE "Password is too weak"
+    const user = await findUserByEmail(email);
+
+    if (user) throwError('Email already in use.', 409);
+
+    validatePassword(password);
 
     await insertUser(name, email, password);
 

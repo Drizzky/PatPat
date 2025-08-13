@@ -1,6 +1,5 @@
 import express from 'express';
-// import authorize from './src/middlewares/authorize.js';
-import validatePassword from '../middleware/validatePassword.js';
+// import authUserMiddleware from '../middleware/authorize.js';
 
 import loginUser from '../controllers/users/loginUser.js';
 import registerUser from '../controllers/users/registerUser.js';
@@ -12,7 +11,7 @@ import updatePassUserByToken from '../controllers/users/updatePassUserByToken.js
 const router = express.Router();
 
 // Registrarse
-router.post('/register', validatePassword, registerUser);
+router.post('/register', registerUser);
 
 // Verificar email usuario
 router.put('/verify-email/:token', verifyEmailUser);

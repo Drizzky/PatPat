@@ -8,7 +8,7 @@ const resetPassword = async (user = {}) => {
 
   const pool = await getPool();
 
-  const resetCode = crypto.randomBytes(15).toString('hex');
+  const resetCode = crypto.randomBytes(32).toString('hex');
 
   await pool.query(
     `INSERT INTO users_log (idUser, date, token, expiration, state)
