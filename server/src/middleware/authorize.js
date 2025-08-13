@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
-import errorHandler from './src/utils/errorHandler.js';
+import throwError from './src/utils/throwError.js';
 
 const authUserMiddleware = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
-    if (!authorization) return next(errorHandler({ httpStatus: 401, message: 'Missing Authorization Headers' }, req, res));
+    if (!authorization) return next(throwError({ httpStatus: 401, message: 'Missing Authorization Headers' }, req, res));
 
     try {
       //Desencriptamos la información del token
@@ -14,7 +14,7 @@ const authUserMiddleware = async (req, res, next) => {
       next();
     } catch (err) {
       console.error(err);
-      next(errorHandler({ httpStatus: 403, message: 'Invalid token' }, req, res));
+      next(throwError({ httpStatus: 403, message: 'Invalid token' }, req, res));
     }
   } catch (err) {
     next(err);
