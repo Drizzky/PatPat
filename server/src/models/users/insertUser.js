@@ -3,16 +3,22 @@ import bcrypt from 'bcrypt';
 import getPool from '../../db/getPool.js';
 import sendMail from '../../utils/sendMail.js';
 import throwError from '../../utils/throwError.js';
-import findUserByEmail from './findUserByEmail.js';
 
-const insertUser = async (name, email, password) => {
+const insertUser = async (body) => {
+  const { name = '', email = '', password = '' } = body;
+
+  if (!name || !email || !password) throwError('Missing fields.', 400);
+
   const pool = await getPool();
 
+<<<<<<< Updated upstream
+  const token = crypto.randomBytes(32).toString('hex');
+=======
   const user = await findUserByEmail(email);
-
   if (user) throwError('Email already in use.', 409);
 
-  const regCode = crypto.randomBytes(15).toString('hex');
+  const token = crypto.randomBytes(15).toString('hex');
+>>>>>>> Stashed changes
   const hashedPass = await bcrypt.hash(password, 10);
 
   const [result] = await pool.query(
@@ -22,24 +28,22 @@ const insertUser = async (name, email, password) => {
   );
 
   const id_user = result.insertId;
-
   if (!id_user) throwError('Error creating user', 404);
 
   await pool.query(
     `INSERT INTO users_log (idUser, date, token, expiration, state)
-     VALUES (${id_user}, NOW(), '${regCode}', NOW() + INTERVAL 1 DAY, 'email' )`
+     VALUES (${id_user}, NOW(), '${token}', NOW() + INTERVAL 1 DAY, 'email' )`
   );
 
   const emailSubject = 'Pat² account activation :)';
-
   const emailBody = `
   Welcome to Pat² ${name}!
 
   Thank you for registering!
   We are excited to have you onboard.
-  To activate your account and start sharing your beautiful pets, click on the link below :
+  To activate your account and start sharing your beautiful pets, click on the link below:
 
-  ${process.env.CLIENT_URL}/validate/${regCode}
+  ${process.env.CLIENT_URL}/verify-email/${token}
   `;
 
   await sendMail(email, emailSubject, emailBody);

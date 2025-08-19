@@ -7,24 +7,26 @@ meta {
 post {
   url: {{url}}/api/users/login
   body: json
-  auth: inherit
+  auth: none
 }
 
 body:json {
   {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    "email": "nachito.th7@gmail.com",
+    "password": "Pepe123."
+=======
     "email": "imdrizzky@gmail.com",
-    "password": "333"
+    "password": "thisShouldntwrk2!"
+>>>>>>> Stashed changes
+=======
+    "email": "imdrizzky@gmail.com",
+    "password": "thisShouldntwrk2!"
+>>>>>>> Stashed changes
   }
 }
 
 tests {
   bru.setVar('token', req.body.token)
-}
-
-docs {
-  {
-  "name": "Camilo",
-  "email": "imdrizzky@gmail.com"
-  "password": "Claudianorena00"
-  }
 }
