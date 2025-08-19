@@ -1,23 +1,19 @@
 meta {
   name: VERIFY
   type: http
-  seq: 3
+  seq: 6
 }
 
 put {
   url: {{url}}/api/users/verify-email/:token
   body: none
-  auth: none
+  auth: inherit
 }
 
 params:path {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  token: 1b56987694dcd19209e49bcf1f26d8a01dce18ea083f1ffc9c720e40850d061c
-=======
-  token: e3c8efd51d77ac80e05ba97511c7f6
->>>>>>> Stashed changes
-=======
-  token: e3c8efd51d77ac80e05ba97511c7f6
->>>>>>> Stashed changes
+  token: cde073ac05b5f95d2e79ec543441cab194f2d8c72f499736a310f774f037f3e6
+}
+
+settings {
+  encodeUrl: true
 }

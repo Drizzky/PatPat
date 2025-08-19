@@ -18,7 +18,7 @@ const registerUser = async (req, res, next) => {
 
     validatePassword(password);
 
-    await insertUser(name, email, password);
+    await insertUser({ name, email, password });
 
     res.status(201).send({
       status: 'ok',
