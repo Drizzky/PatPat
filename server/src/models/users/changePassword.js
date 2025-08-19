@@ -21,7 +21,7 @@ const changePassword = async (userId, currentPassword, newPassword) => {
 
   const hashedPass = await bcrypt.hash(newPassword, 10);
 
-  await pool.query(`UPDATE users SET password = ?, modifiedAt = NOW(), WHERE id = ?`, [hashedPass, userId]);
+  await pool.query(`UPDATE users SET password = ?, modifiedAt = NOW() WHERE id = ?`, [hashedPass, userId]);
 };
 
 export default changePassword;
