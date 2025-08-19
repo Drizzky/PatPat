@@ -1,6 +1,6 @@
 import throwError from './throwError.js';
 
-const validatePassword = (password) => {
+const validatePassword = (password = '') => {
   // One uppercase, one lowercase, one number, one symbol
   const pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,18}$/;
 

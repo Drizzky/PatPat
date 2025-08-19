@@ -6,7 +6,7 @@ const changeUserPass = async (req, res, next) => {
     const userId = req.user?.id;
 
     const currentPassword = req.body.currentPassword;
-    const newPassword = req.body.newPassword || req.body.password;
+    const newPassword = req.body.newPassword;
 
     if (!currentPassword || !newPassword) {
       throwError('Missing fields.', 400);

@@ -1,6 +1,5 @@
 import express from 'express';
 import authorize from '../middleware/authorize.js';
-import validatePassword from '../middleware/validatePassword.js';
 import loginUser from '../controllers/users/loginUser.js';
 import registerUser from '../controllers/users/registerUser.js';
 import verifyEmailUser from '../controllers/users/verifyEmailUser.js';
@@ -25,6 +24,6 @@ router.post('/password-reset/:token', updatePassUserByToken);
 router.post('/login', loginUser);
 
 // Cambiar contraseña (con auth)
-router.post('/password-change', authorize, validatePassword, changeUserPass);
+router.post('/password-change', authorize,  changeUserPass);
 
 export default router;

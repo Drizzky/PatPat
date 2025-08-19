@@ -7,12 +7,12 @@ meta {
 post {
   url: {{url}}/api/users/password-change
   body: json
-  auth: bearer
+  auth: inherit
 }
 
 body:json {
   {
-    "currentPassword" : "thisShouldntwrk2!",
+    "currentPassword" : "Pepe123.",
     "newPassword": "Password!00"
   }
 }
