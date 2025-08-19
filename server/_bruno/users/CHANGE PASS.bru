@@ -1,0 +1,26 @@
+meta {
+  name: CHANGE PASS
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{url}}/api/users/password-change
+  body: json
+  auth: inherit
+}
+
+headers {
+  authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTU2MzAyNTUsImV4cCI6MTc1NjIzNTA1NX0.YIEhVUTvvOSVgxurGy-cTCElNdRECkCnQgCkP_caYI4
+}
+
+body:json {
+  {
+    "currentPassword" : "thisShouldntwrk2!",
+    "newPassword": "Password!00"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
