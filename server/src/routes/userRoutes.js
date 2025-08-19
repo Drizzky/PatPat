@@ -1,7 +1,10 @@
 import express from 'express';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 // import authUserMiddleware from '../middleware/authorize.js';
 =======
+=======
+>>>>>>> Stashed changes
 import authorize from '../middleware/authorize.js';
 import validatePassword from '../middleware/validatePassword.js';
 >>>>>>> Stashed changes

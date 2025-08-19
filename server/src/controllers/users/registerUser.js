@@ -6,6 +6,7 @@ import validatePassword from '../../utils/validatePassword.js';
 const registerUser = async (req, res, next) => {
   try {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) throwError('Missing fields.', 400);
@@ -17,6 +18,10 @@ const registerUser = async (req, res, next) => {
     validatePassword(password);
 
     await insertUser(name, email, password);
+=======
+    if (!req.body) throwError('Missing fields.', 400);
+    await insertUser(req.body);
+>>>>>>> Stashed changes
 =======
     if (!req.body) throwError('Missing fields.', 400);
     await insertUser(req.body);
