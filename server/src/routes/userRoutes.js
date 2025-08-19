@@ -1,11 +1,17 @@
 import express from 'express';
+<<<<<<< Updated upstream
 // import authUserMiddleware from '../middleware/authorize.js';
+=======
+import authorize from '../middleware/authorize.js';
+import validatePassword from '../middleware/validatePassword.js';
+>>>>>>> Stashed changes
 
 import loginUser from '../controllers/users/loginUser.js';
 import registerUser from '../controllers/users/registerUser.js';
 import verifyEmailUser from '../controllers/users/verifyEmailUser.js';
 import resetPassUser from '../controllers/users/resetPassUser.js';
 import updatePassUserByToken from '../controllers/users/updatePassUserByToken.js';
+import changeUserPass from '../controllers/users/changePassword.js';
 
 //creamos un router
 const router = express.Router();
@@ -23,7 +29,7 @@ router.post('/password-reset/:token', updatePassUserByToken);
 // Iniciar sesión de usuario
 router.post('/login', loginUser);
 
-// // Cambiar contraseña
-// router.post('/password', authorize, updatePassUser);
+// Cambiar contraseña (con auth)
+router.post('/password-change', authorize, validatePassword, changeUserPass);
 
 export default router;

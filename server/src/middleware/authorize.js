@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken';
 import throwError from '../utils/throwError.js';
 
-const authUserMiddleware = async (req, res, next) => {
+const authorize = (req, res, next) => {
   try {
     const { authorization } = req.headers;
+<<<<<<< Updated upstream
     if (!authorization) return next(throwError('Missing Authorization Headers', 401));
 
     try {
@@ -15,10 +16,29 @@ const authUserMiddleware = async (req, res, next) => {
     } catch (err) {
       console.error(err);
       next(throwError('Invalid token', 403));
+=======
+
+    if (!authorization) {
+      return next(throwError('Missing Authorization header', 401));
+>>>>>>> Stashed changes
     }
+
+    // Remove "Bearer " prefix if present
+    const token = authorization.startsWith('Bearer ') ? authorization.slice(7).trim() : authorization.trim();
+
+    let tokenInfo;
+    try {
+      tokenInfo = jwt.verify(token, process.env.SECRET);
+    } catch (err) {
+      console.log(err);
+      return next(throwError('Invalid token', 403));
+    }
+
+    req.user = { userId: tokenInfo.id, role: tokenInfo.role };
+    next();
   } catch (err) {
     next(err);
   }
 };
 
-export default authUserMiddleware;
+export default authorize;

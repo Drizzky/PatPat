@@ -26,14 +26,14 @@ app.use('/api/users', userRoutes);
 // Errors
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  if (err.httpStatus) {
-    // Controlled error from throwError
-    console.error('\x1b[33m%s\x1b[0m', err); // Yellow color for controlled errors
-    res.status(err.httpStatus).send({ status: 'error', message: err.message });
+  const statusCode = Number.isInteger(err.httpStatus) ? err.httpStatus : 500;
+
+  if (statusCode !== 500) {
+    console.error('\x1b[33m%s\x1b[0m', err); // Yellow for controlled errors
+    res.status(statusCode).json({ status: 'error', message: err.message });
   } else {
-    // Uncontrolled error
-    console.error('\x1b[31m%s\x1b[0m', err); // Red color for uncontrolled errors
-    res.status(500).send({ status: 'error', message: 'Internal server error' });
+    console.error('\x1b[31m%s\x1b[0m', err); // Red for uncontrolled errors
+    res.status(500).json({ status: 'error', message: 'Internal server error' });
   }
 });
 

@@ -4,12 +4,21 @@ import getPool from '../../db/getPool.js';
 import sendMail from '../../utils/sendMail.js';
 import throwError from '../../utils/throwError.js';
 
-const insertUser = async (name = '', email = '', password = '') => {
+const insertUser = async (body) => {
+  const { name = '', email = '', password = '' } = body;
+
   if (!name || !email || !password) throwError('Missing fields.', 400);
 
   const pool = await getPool();
 
+<<<<<<< Updated upstream
   const token = crypto.randomBytes(32).toString('hex');
+=======
+  const user = await findUserByEmail(email);
+  if (user) throwError('Email already in use.', 409);
+
+  const token = crypto.randomBytes(15).toString('hex');
+>>>>>>> Stashed changes
   const hashedPass = await bcrypt.hash(password, 10);
 
   const [result] = await pool.query(
@@ -19,7 +28,6 @@ const insertUser = async (name = '', email = '', password = '') => {
   );
 
   const id_user = result.insertId;
-
   if (!id_user) throwError('Error creating user', 404);
 
   await pool.query(
@@ -28,7 +36,6 @@ const insertUser = async (name = '', email = '', password = '') => {
   );
 
   const emailSubject = 'Pat² account activation :)';
-
   const emailBody = `
   Welcome to Pat² ${name}!
 
