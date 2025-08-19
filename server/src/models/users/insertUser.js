@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import getPool from '../../db/getPool.js';
 import sendMail from '../../utils/sendMail.js';
 import throwError from '../../utils/throwError.js';
+import findUserByEmail from './findUserByEmail.js';
 
 const insertUser = async (body) => {
   const { name = '', email = '', password = '' } = body;
@@ -11,16 +12,14 @@ const insertUser = async (body) => {
 
   const pool = await getPool();
 
-<<<<<<< Updated upstream
-  const token = crypto.randomBytes(32).toString('hex');
-=======
+  // Check if user already exists
   const user = await findUserByEmail(email);
   if (user) throwError('Email already in use.', 409);
 
-  const token = crypto.randomBytes(15).toString('hex');
->>>>>>> Stashed changes
+  // Hash password
   const hashedPass = await bcrypt.hash(password, 10);
 
+  // Insert user
   const [result] = await pool.query(
     `INSERT INTO users (email, name, password, role, createdAt)
      VALUES (?, ?, ?, 'user', NOW())`,
@@ -28,13 +27,18 @@ const insertUser = async (body) => {
   );
 
   const id_user = result.insertId;
-  if (!id_user) throwError('Error creating user', 404);
+  if (!id_user) throwError('Error creating user', 500);
+
+  // Generate email verification token
+  const token = crypto.randomBytes(32).toString('hex');
 
   await pool.query(
     `INSERT INTO users_log (idUser, date, token, expiration, state)
-     VALUES (${id_user}, NOW(), '${token}', NOW() + INTERVAL 1 DAY, 'email' )`
+     VALUES (?, NOW(), ?, NOW() + INTERVAL 1 DAY, 'email')`,
+    [id_user, token]
   );
 
+  // Send activation email
   const emailSubject = 'Pat² account activation :)';
   const emailBody = `
   Welcome to Pat² ${name}!
