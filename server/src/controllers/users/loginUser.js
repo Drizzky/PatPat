@@ -13,7 +13,7 @@ const loginUser = async (req, res, next) => {
     if (!email || !password) throwError('Missing fields.', 400);
 
     const user = await findUserByEmail(email);
-    if (!user) throwError(`Couldn't find you Pat² account`, 404);
+    if (!user) throwError(`Couldn't find your Pat² account`, 404);
 
     const userLocked = await checkUserLocked(user.id);
     if (userLocked > 0) {
