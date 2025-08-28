@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS USERS (
     role VARCHAR(50),
     isVerified BOOLEAN DEFAULT FALSE,
     isBanned BOOLEAN DEFAULT FALSE,
-    avatar TEXT,
     createdAt DATETIME,
     modifiedAt DATETIME,
     deletedAt DATETIME,

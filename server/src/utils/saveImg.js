@@ -20,27 +20,11 @@ const saveImg = async (img, type = 'post', width = 800) => {
     const sharpImg = sharp(img.data);
 
     switch (type) {
-      case 'avatar':
-        await sharpImg
-          .resize(200, 200) // square
-          .jpeg({ quality: 80 })
-          .toFile(imgPath);
-        break;
-
       case 'banner':
-        await sharpImg
-          .resize(1200, 400, { fit: 'cover' }) // wide rectangle
-          .jpeg({ quality: 80 })
-          .toFile(imgPath);
+        await sharpImg.resize(1200, 400, { fit: 'cover' }).jpeg({ quality: 80 }).toFile(imgPath);
         break;
 
       case 'post':
-        await sharpImg
-          .resize(width, null, { fit: 'inside' }) // keep aspect ratio
-          .jpeg({ quality: 80 })
-          .toFile(imgPath);
-        break;
-
       default:
         await sharpImg.resize(width, null, { fit: 'inside' }).jpeg({ quality: 80 }).toFile(imgPath);
     }

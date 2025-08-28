@@ -6,6 +6,8 @@ import verifyEmailUser from '../controllers/users/verifyEmailUser.js';
 import resetPassUser from '../controllers/users/resetPassUser.js';
 import updatePassUserByToken from '../controllers/users/updatePassUserByToken.js';
 import changeUserPass from '../controllers/users/changePassword.js';
+import registerHome from '../controllers/users/registerHome.js';
+import updateHome from '../controllers/users/updateHome.js';
 
 //creamos un router
 const router = express.Router();
@@ -24,6 +26,12 @@ router.post('/password-reset/:token', updatePassUserByToken);
 router.post('/login', loginUser);
 
 // Cambiar contraseña (con auth)
-router.post('/password-change', authorize,  changeUserPass);
+router.post('/password-change', authorize, changeUserPass);
+
+// Register a home
+router.post('/home/register', authorize, registerHome);
+
+// Update homes name and optionally, the banner.
+router.patch('/home', authorize, updateHome);
 
 export default router;
