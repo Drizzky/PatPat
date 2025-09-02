@@ -1,0 +1,20 @@
+meta {
+  name: UPDATE HOME
+  type: http
+  seq: 8
+}
+
+patch {
+  url: {{url}}/api/users/home
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  name: Kitty Condo @contentType(Text)
+  banner: @file(C:\Users\Camilo\Pictures\Camera Roll\WIN_20250526_20_32_54_Pro.jpg) @contentType(File)
+}
+
+settings {
+  encodeUrl: true
+}

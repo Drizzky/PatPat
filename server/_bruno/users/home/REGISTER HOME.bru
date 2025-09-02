@@ -1,0 +1,20 @@
+meta {
+  name: REGISTER HOME
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{url}}/api/users/home
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  name: Pussy Palace² @contentType(Text)
+  banner: @file(C:\Users\Camilo\Downloads\IMG_20250412_182648.jpg) @contentType(File)
+}
+
+settings {
+  encodeUrl: true
+}

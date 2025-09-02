@@ -11,13 +11,13 @@ const saveImg = async (img, type = 'post', width = 800) => {
     try {
       await fs.access(uploadsPath);
     } catch {
-      await fs.mkdir(uploadsPath);
+      await fs.mkdir(uploadsPath, { recursive: true });
     }
 
     const imgName = `${crypto.randomUUID()}.jpeg`;
     const imgPath = path.join(uploadsPath, imgName);
 
-    const sharpImg = sharp(img.data);
+    const sharpImg = sharp(img.tempFilePath);
 
     switch (type) {
       case 'banner':

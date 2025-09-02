@@ -3,13 +3,14 @@ import findHomeById from '../../models/users/findHomebyId.js';
 import throwError from '../../utils/throwError.js';
 import saveImg from '../../utils/saveImg.js';
 import removeImg from '../../utils/removeImg.js';
+import updateHome from '../../models/users/updateHome.js';
 
-const updateHome = async (req, res, next) => {
+const modifyHome = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const { name } = req.body;
 
-    if (!name) throwError('Your house needs a name!', 400);
+    if (!name) throwError('Your home needs a name!', 400);
 
     const user = await findUserById(userId);
     if (!user.idHome) throwError('User is homeless', 404);
@@ -33,4 +34,4 @@ const updateHome = async (req, res, next) => {
   }
 };
 
-export default updateHome;
+export default modifyHome;

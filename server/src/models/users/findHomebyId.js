@@ -6,7 +6,7 @@ const findHomeById = async (homeId) => {
 
   const [home] = await pool.query(
     `
-    SELECT name, banner, createdAt FROM HOME WHERE id = ?
+    SELECT id, name, banner, createdAt FROM home WHERE id = ?
     `,
     [homeId]
   );

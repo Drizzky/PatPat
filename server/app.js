@@ -14,8 +14,8 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(morgan('dev'));
-app.use(express.json());
 app.use(fileUpload(fileUploadConfig));
+app.use(express.json());
 
 // Static Files
 app.use(express.static(UPLOADS_DIR));
