@@ -51,13 +51,20 @@ CREATE TABLE IF NOT EXISTS PET_COLORS (
 CREATE TABLE IF NOT EXISTS PETS (
     id INT AUTO_INCREMENT PRIMARY KEY,
     idHome INT,
+    idUserCreator INT,
+    idUserModifier INT,
     name VARCHAR(255),
+    birthday DATETIME,
     avatar TEXT,
     idCategory INT,
     idColor INT,
+    createdAt DATETIME,
+    modifiedAt DATETIME,
     FOREIGN KEY (idHome) REFERENCES HOME(id),
     FOREIGN KEY (idCategory) REFERENCES PET_CATEGORIES(id),
-    FOREIGN KEY (idColor) REFERENCES PET_COLORS(id)
+    FOREIGN KEY (idColor) REFERENCES PET_COLORS(id),
+    FOREIGN KEY (idUserCreator) REFERENCES USERS(id),
+    FOREIGN KEY (idUserModifier) REFERENCES USERS(id)
 );
 CREATE TABLE IF NOT EXISTS TYPES (
     id INT AUTO_INCREMENT PRIMARY KEY,
