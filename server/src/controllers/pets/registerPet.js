@@ -12,11 +12,11 @@ const registerPet = async (req, res, next) => {
 
     if (!user.idHome) throwError('Your pet needs a home!', 404);
 
-    const { name, birthday } = req.body;
+    const { name } = req.body;
 
-    if (!name || !birthday) throwError('Name and birthday required', 400);
+    if (!name) throwError('Your pet needs a name!', 400);
 
-    await insertPet(userId, user.idHome, name, birthday);
+    await insertPet(userId, user.idHome, name);
 
     res.status(201).send({
       status: 'ok',
