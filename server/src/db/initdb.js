@@ -2,21 +2,24 @@ import getPool from './getPool.js';
 import { readFileSync } from 'fs';
 
 const scriptDB = readFileSync('./src/db/scriptDB.sql', 'utf-8');
+const petScript = readFileSync('./src/db/petTypesScript.sql', 'utf-8');
 
 const main = async () => {
-    try {
-        const pool = await getPool();
+  try {
+    const pool = await getPool();
 
-        console.log('Creating tables...');
+    console.log('Creating tables...');
+    await pool.query(scriptDB);
 
-        await pool.query(scriptDB);
+    console.log('Adding pets...');
+    await pool.query(petScript);
 
-        console.log(`✅ Database initialized successfully.`);
-        process.exit(0);
-    } catch (error) {
-        console.error('❌ Error initializing database:', error);
-        process.exit(1);
-    }
+    console.log(`✅ Database initialized successfully.`);
+    process.exit(0);
+  } catch (error) {
+    console.error('❌ Error initializing database:', error);
+    process.exit(1);
+  }
 };
 
 main();
