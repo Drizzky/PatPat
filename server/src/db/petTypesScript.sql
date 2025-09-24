@@ -92,7 +92,7 @@ INSERT INTO TYPES (name, idParent) VALUES
 ('Somali', @catId),
 ('Abyssinian', @catId),
 ('American Shorthair', @catId),
-('Norwegian Forest Cat', @catId),
+('Norwegian Forest', @catId),
 ('Oriental Shorthair', @catId),
 ('Devon Rex', @catId),
 ('Russian Blue', @catId),
@@ -144,7 +144,7 @@ INSERT INTO TYPES (name, idParent) VALUES
 ('Syrian', @hamsterId),
 ('Chinese', @hamsterId),
 ('Winter White Russian Dwarf', @hamsterId),
-('Campbell Russian Dwarf', @hamsterId),
+("Campbell's Russian Dwarf", @hamsterId),
 ('Roborovski Dwarf', @hamsterId),
 ('European', @hamsterId),
 
@@ -161,32 +161,55 @@ SET @reptileId = (SELECT id FROM TYPES WHERE name = 'Reptile');
 INSERT INTO TYPES (name, idParent) VALUES
 ('Snake', @reptileId),
 ('Lizard', @reptileId),
+('Tortoise', @reptileId),
 ('Turtle', @reptileId),
 ('Crocodile', @reptileId);
 
 SET @snakeId = (SELECT id FROM TYPES WHERE name = 'Snake');
 SET @lizardId = (SELECT id FROM TYPES WHERE name = 'Lizard');
 SET @turtleId = (SELECT id FROM TYPES WHERE name = 'Turtle');
+SET @tortoiseId = (SELECT id FROM TYPES WHERE name = 'Tortoise');
 
---SNAKES REDO
+--SNAKES
 INSERT INTO TYPES (name, idParent) VALUES
-('Ball Python', @snakeId),
-('Corn Snake', @snakeId),
-('King Snake', @snakeId);
-('Milk Snake', @snakeId),
-('Garter Snake', @snakeId),
-('Water Snake', @snakeId),
-('Green Tree Python', @snakeId),
-('Brazilian Rainbow Boa', @snakeId),
-('Red-Tail Boa', @snakeId),
-('Kenyan Sand Boa', @snakeId),
-('Burmese Python', @snakeId),
-('Blood Python', @snakeId),
-('Black Rat Snake', @snakeId),
-('Rattle Snake', @snakeId),
-('Boa Constrictor', @snakeId),
-('Rosy Boa', @snakeId),
-("Hognose", @SnakeId);
+('Python', @snakeId),
+('Boa', @snakeId),
+('Colubrid', @snakeId),
+('Viper', @snakeId);
+
+SET @pythonId = (SELECT id FROM TYPES WHERE name = 'Python' LIMIT 1);
+SET @boaId = (SELECT id FROM TYPES WHERE name = 'Boa' LIMIT 1);
+SET @colubridId = (SELECT id FROM TYPES WHERE name = 'Colubrid' LIMIT 1);
+SET @viperId = (SELECT id FROM TYPES WHERE name = 'Viper' LIMIT 1);
+
+-- Pythons
+INSERT INTO TYPES (name, idParent) VALUES
+('Ball ', @pythonId),
+('Burmese', @pythonId),
+('Blood', @pythonId),
+('Green Tree', @pythonId);
+
+-- Boas
+INSERT INTO TYPES (name, idParent) VALUES
+('Constrictor', @boaId),
+('Red-Tail Boa', @boaId),
+('Rosy Boa', @boaId),
+('Kenyan Sand', @boaId),
+('Brazilian Rainbow', @boaId);
+
+-- Colubrids
+INSERT INTO TYPES (name, idParent) VALUES
+('Corn', @colubridId),
+('King', @colubridId),
+('Milk', @colubridId),
+('Garter', @colubridId),
+('Water', @colubridId),
+('Black Rat', @colubridId),
+('Hognose', @colubridId);
+
+-- Vipers
+INSERT INTO TYPES (name, idParent) VALUES
+('Rattlesnake', @viperId);
 
 --LIZARDS
 INSERT INTO TYPES (name, idParent) VALUES
@@ -197,6 +220,9 @@ INSERT INTO TYPES (name, idParent) VALUES
 ('Iguana', @lizardId),
 ('Anole', @lizardId),
 ('Skink', @lizardId);
+('Egyptian Spiny-Tailed Lizard', @lizardId),
+('Ornate Spiny-Tailed Lizard', @lizardId),
+('Sudanese Spiny-Tailed Lizard', @lizardId);
 
 SET @geckoId = (SELECT id FROM TYPES WHERE name = 'Gecko');
 SET @dragonId = (SELECT id FROM TYPES WHERE name = 'Dragon');
@@ -222,40 +248,86 @@ INSERT INTO TYPES (name, idParent) VALUES
 
 --DRAGONS
 INSERT INTO TYPES (name, idParent) VALUES
-('Bearded Dragon', @dragonId),
-('Frilled Dragon', @dragonId),
-('Chinese Water Dragon', @dragonId),
-("Rankin's Dragon", @dragonId),
-('Komodo Dragon', @dragonId),
-('Crested Dragons', @dragonId),
-('Egyptian Spiny-Tailed Lizard', @dragonId),
-('Ornate Spiny-Tailed Lizard', @dragonId),
-('Sudanese Spiny-Tailed Lizard', @dragonId);
+('Bearded', @dragonId),
+('Frilled', @dragonId),
+('Chinese Water', @dragonId),
+("Rankin's", @dragonId),
+('Komodo', @dragonId),
+('Crested', @dragonId),
 
 --CHAMALEONS
 INSERT INTO TYPES (name, idParent) VALUES
-("Jackson's Chameleon", @chameleonId),
+("Jackson's", @chameleonId),
 ('Brookesia Micra', @chameleonId),
-('Lance-Nosed Chameleon', @chameleonId),
-("Parson's Chameleon", @chameleonId),
-('Brown Leaf Chameleon', @chameleonId),
-('Jewelled Chameleon', @chameleonId),
-('Rhinoceros Chameleon', @chameleonId),
-('Panther Chameleon', @chameleonId),
-('Veiled Chameleon', @chameleonId),
-('Nose-Horned Chameleon', @chameleonId),
-('Cameroon Salfin Chameleon', @chameleonId),
-('Carpet Chameleon', @chameleonId),
-('Rudis Chameleon', @chameleonId),
-('Vemen Chameleon', @chameleonId);
+('Lance-Nosed', @chameleonId),
+("Parson's", @chameleonId),
+('Brown Leaf', @chameleonId),
+('Jewelled', @chameleonId),
+('Rhinoceros', @chameleonId),
+('Panther', @chameleonId),
+('Veiled', @chameleonId),
+('Nose-Horned', @chameleonId),
+('Cameroon Salfin', @chameleonId),
+('Carpet', @chameleonId),
+('Rudis', @chameleonId),
+('Vemen', @chameleonId);
 
 --MONITORS
 INSERT INTO TYPES (name, idParent) VALUES
-('Spiny-Tailed Monitor', @monitorId)
+INSERT INTO TYPES (name, idParent) VALUES
+('Ackie', @monitorId),             
+('Spiny-Tailed', @monitorId),
+('Black-Throated', @monitorId),
+('White-Throated', @monitorId),
+('Peach-Throated', @monitorId),
+('Water', @monitorId),
+('Savannah', @monitorId),     
+('Tree', @monitorId),
+('Rough-Necked', @monitorId),
+('Mangrove', @monitorId),
+('Nile', @monitorId),
+("Dumeril's", @monitorId),
+('Emerald Tree', @monitorId),
+('Argus', @monitorId),
+('Crocodile', @monitorId),
+('Lace', @monitorId),
+('Yellow-Spotted', @monitorId);
 
+-- TURTLES
 INSERT INTO TYPES (name, idParent) VALUES
 ('Red-Eared Slider', @turtleId),
-('Box Turtle', @turtleId);
+('Box Turtle', @turtleId),
+('African Sideneck', @turtleId),
+('Eastern Box', @turtleId),
+('Western Painted', @turtleId),
+('Mississippi Map', @turtleId),
+('Common Musk', @turtleId),
+('Spotted', @turtleId),
+('Yellow-Bellied Slider', @turtleId),
+("Reeve's", @turtleId),
+('Wood', @turtleId);
+
+-- TORTOISES
+INSERT INTO TYPES (name, idParent) VALUES
+('Red-Footed', @tortoiseId),
+("Hermann's", @tortoiseId),
+('Russian', @tortoiseId),
+('Marginated', @tortoiseId),
+('Asia Minor', @tortoiseId),
+('Sulcata', @tortoiseId),
+('Greek', @tortoiseId),
+('Indian Star', @tortoiseId),
+('Aldabra Giant', @tortoiseId),
+('Burmese Star', @tortoiseId),
+('Desert', @tortoiseId),
+('Leopard', @tortoiseId),
+('Egyptian', @tortoiseId),
+('Pancake', @tortoiseId),
+('Gopher', @tortoiseId),
+('Hingeback', @tortoiseId),
+('Elongated', @tortoiseId),
+('Yellow-Footed', @tortoiseId),
+('Galapagos', @tortoiseId);
 
 -- ===========================
 -- BIRDS
@@ -270,6 +342,7 @@ INSERT INTO TYPES (name, idParent) VALUES
 
 SET @parrotId = (SELECT id FROM TYPES WHERE name = 'Parrot');
 
+-- PARROTS
 INSERT INTO TYPES (name, idParent) VALUES
 ('Macaw', @parrotId),
 ('African Grey', @parrotId),
