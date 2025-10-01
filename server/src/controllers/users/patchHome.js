@@ -5,7 +5,7 @@ import saveImg from '../../utils/saveImg.js';
 import removeImg from '../../utils/removeImg.js';
 import updateHome from '../../models/users/updateHome.js';
 
-const modifyHome = async (req, res, next) => {
+const patchHome = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const { name } = req.body;
@@ -34,4 +34,4 @@ const modifyHome = async (req, res, next) => {
   }
 };
 
-export default modifyHome;
+export default patchHome;

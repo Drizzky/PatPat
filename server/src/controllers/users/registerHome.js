@@ -16,11 +16,12 @@ const registerHome = async (req, res, next) => {
     let banner = null;
     if (req.files?.banner) banner = await saveImg(req.files.banner, 'banner');
 
-    await insertHome(req.user.id, name, banner);
+    const idHome = await insertHome(req.user.id, name, banner);
 
     res.status(201).send({
       status: 'ok',
       message: 'Welcome home!',
+      id: idHome,
     });
   } catch (err) {
     next(err);

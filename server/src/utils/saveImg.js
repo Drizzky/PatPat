@@ -36,7 +36,7 @@ const saveImg = async (img, type = 'post', width = 800) => {
     return imgName;
   } catch (err) {
     console.error(err);
-    throw throwError('Could not save file.', 500);
+    throwError('Could not save file.', 500);
   }
 };
 

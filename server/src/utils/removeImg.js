@@ -12,7 +12,7 @@ const removeImgUtil = async (imgName) => {
       return;
     }
     console.error(err);
-    throw throwError('Cannot delete file', 500);
+    throwError('Cannot delete file', 500);
   }
 };
 

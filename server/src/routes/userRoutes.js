@@ -7,9 +7,9 @@ import resetPassUser from '../controllers/users/resetPassUser.js';
 import updatePassUserByToken from '../controllers/users/updatePassUserByToken.js';
 import changeUserPass from '../controllers/users/changePassword.js';
 import registerHome from '../controllers/users/registerHome.js';
-import modifyHome from '../controllers/users/modifyHome.js';
+import patchHome from '../controllers/users/patchHome.js';
 
-//creamos un router
+// Router
 const router = express.Router();
 
 // Registrarse
@@ -32,6 +32,6 @@ router.post('/password-change', authorize, changeUserPass);
 router.post('/home', authorize, registerHome);
 
 // Update homes name and optionally, the banner.
-router.patch('/home', authorize, modifyHome);
+router.patch('/home', authorize, patchHome);
 
 export default router;
