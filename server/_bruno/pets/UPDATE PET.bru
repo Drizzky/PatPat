@@ -1,0 +1,28 @@
+meta {
+  name: UPDATE PET
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{url}}/api/pets/:idPet
+  body: json
+  auth: inherit
+}
+
+params:path {
+  idPet: 1
+}
+
+body:json {
+  {
+    "name":"Yuki",
+    "birthday":"2023-03-02",
+    "idCategory":"10",
+    "idColor":"1"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

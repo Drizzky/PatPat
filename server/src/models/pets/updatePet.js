@@ -12,7 +12,7 @@ const updatePet = async (petId, userId, name, birthday, idCategory, idColor) => 
           birthday = ?, 
           idCategory = ?, 
           idColor = ?, 
-          idUserModifier = ?
+          idUserModifier = ?,
           modifiedAt = NOW()
       WHERE id = ? `,
     [name, birthday, idCategory, idColor, userId, petId]
