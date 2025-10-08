@@ -42,6 +42,7 @@ const loginUser = async (req, res, next) => {
     const tokenInfo = {
       id: user.id,
       role: user.role,
+      idHome: user.idHome,
     };
 
     // token válido 7 días

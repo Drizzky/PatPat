@@ -1,0 +1,19 @@
+meta {
+  name: UPDATE BANNER
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{url}}/api/users/home/banner/
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  banner: @file(C:\Users\Camilo\Pictures\Screenshots\Screenshot 2025-09-19 021609.png)
+}
+
+settings {
+  encodeUrl: true
+}

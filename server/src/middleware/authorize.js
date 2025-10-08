@@ -18,7 +18,7 @@ const authorize = (req, res, next) => {
       throwError('Invalid token', 403);
     }
 
-    req.user = { id: tokenInfo.id, role: tokenInfo.role };
+    req.user = { id: tokenInfo.id, role: tokenInfo.role, idHome: tokenInfo.idHome };
     next();
   } catch (err) {
     next(err);

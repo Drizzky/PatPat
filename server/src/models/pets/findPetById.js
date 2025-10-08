@@ -5,7 +5,7 @@ const findPetById = async (petId) => {
   const pool = await getPool();
 
   const [pet] = await pool.query(
-    `SELECT id, idHome, name, birthday, idCategory, idColor, idUserCreator, idUserModifier, createdAt, modifiedAt
+    `SELECT id, idHome, avatar, name, birthday, idCategory, idColor, idUserCreator, idUserModifier, createdAt, modifiedAt
            FROM pets WHERE id = ?`,
     [petId]
   );

@@ -1,0 +1,23 @@
+meta {
+  name: UPDATE AVATAR
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{url}}/api/pets/avatar/:id
+  body: multipartForm
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+body:multipart-form {
+  avatar: @file(C:\Users\Camilo\Pictures\Screenshots\Screenshot 2025-09-19 024037.png)
+}
+
+settings {
+  encodeUrl: true
+}

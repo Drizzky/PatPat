@@ -8,6 +8,7 @@ import updatePassUserByToken from '../controllers/users/updatePassUserByToken.js
 import changeUserPass from '../controllers/users/changePassword.js';
 import registerHome from '../controllers/users/registerHome.js';
 import patchHome from '../controllers/users/patchHome.js';
+import updateHomeBanner from '../controllers/users/updateHomeBanner.js';
 
 // Router
 const router = express.Router();
@@ -31,7 +32,10 @@ router.post('/password-change', authorize, changeUserPass);
 // Register a home
 router.post('/home', authorize, registerHome);
 
-// Update homes name and optionally, the banner.
+// Update homes name.
 router.patch('/home', authorize, patchHome);
+
+//Update home banner.
+router.put('/home/banner/', authorize, updateHomeBanner);
 
 export default router;
