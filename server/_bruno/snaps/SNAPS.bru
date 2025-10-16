@@ -1,0 +1,19 @@
+meta {
+  name: SNAPS
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url}}/api/snaps
+  body: none
+  auth: inherit
+}
+
+body:json {
+  {}
+}
+
+settings {
+  encodeUrl: true
+}

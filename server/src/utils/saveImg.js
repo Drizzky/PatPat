@@ -28,7 +28,10 @@ const saveImg = async (img, type = 'post', width = 800) => {
         await sharpImg.resize(1200, 400, { fit: 'cover' }).jpeg({ quality: 80 }).toFile(imgPath);
         break;
 
-      case 'post':
+      case 'snap':
+        await sharpImg.resize(200, 200).jpeg({ quality: 80 }).toFile(imgPath);
+        break;
+
       default:
         await sharpImg.resize(width, null, { fit: 'inside' }).jpeg({ quality: 80 }).toFile(imgPath);
     }

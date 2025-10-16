@@ -1,0 +1,25 @@
+meta {
+  name: POST SNAP
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{url}}/api/snaps
+  body: multipartForm
+  auth: inherit
+}
+
+body:json {
+  {}
+}
+
+body:multipart-form {
+  snap: @file(C:\Users\nachh\Pictures\Steam Icon\ª.png)
+  idPet: 1
+  caption: lick my ass
+}
+
+settings {
+  encodeUrl: true
+}

@@ -18,6 +18,8 @@ const registerHome = async (req, res, next) => {
 
     const idHome = await insertHome(req.user.id, name, banner);
 
+    //TODO gestionar el token nuevo, que tiene idHome, hacer login?
+
     res.status(201).send({
       status: 'ok',
       message: 'Welcome home!',

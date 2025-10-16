@@ -15,8 +15,10 @@ const authorize = (req, res, next) => {
       tokenInfo = jwt.verify(token, process.env.SECRET);
     } catch (err) {
       console.error('\x1b[31m%s\x1b[0m', err); // Red for uncontrolled errors
-      throwError('Invalid token', 403);
+      throwError('unauthorized', 403);
     }
+
+    // TODO CHECKEAR EL TOKEN CONTRA LA BD
 
     req.user = { id: tokenInfo.id, role: tokenInfo.role, idHome: tokenInfo.idHome };
     next();

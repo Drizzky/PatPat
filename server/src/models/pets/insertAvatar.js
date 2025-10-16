@@ -3,7 +3,7 @@ import getPool from '../../db/getPool.js';
 
 const insertAvatar = async (id, avatar) => {
   if (!id || !avatar) {
-    throwError('Missing pet ID or avatar URL', 400);
+    throwError('Missing pet ID or avatar', 400);
   }
 
   const pool = await getPool();

@@ -7,6 +7,7 @@ import fileUploadConfig from './src/config/fileUpload.js';
 
 import userRoutes from './src/routes/userRoutes.js';
 import petRoutes from './src/routes/petRoutes.js';
+import snapRoutes from './src/routes/snapRoutes.js';
 
 const { PORT, UPLOADS_DIR } = process.env;
 
@@ -24,6 +25,7 @@ app.use(express.static(UPLOADS_DIR));
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/pets', petRoutes);
+app.use('/api/snaps', snapRoutes);
 
 // Errors
 // eslint-disable-next-line no-unused-vars
