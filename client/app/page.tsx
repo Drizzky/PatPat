@@ -10,7 +10,7 @@ const Home = () => {
             <p className='text-gray-600 mb-2'>
                 This is a placeholder homepage.
             </p>
-            <p className='text-gray-600 mb-6'>Test out API stuff down below.</p>
+            <p className='text-gray-600 mb-6'>Test out API shit down below.</p>
 
             <Link href='/users/register'>
                 <Button>Register</Button>
