@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import {
     Card,
@@ -46,7 +46,7 @@ const RegisterPage = () => {
     };
     return (
         <div>
-            <Card className='w-full max-w-sm'>
+            <Card>
                 <CardHeader>
                     <CardTitle className='text-center text-3xl'>Pat²</CardTitle>
                     <CardDescription className='text-center'>
@@ -54,7 +54,7 @@ const RegisterPage = () => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className='m-10'>
                         <div className='flex flex-col gap-6'>
                             <div className='grid gap-2'>
                                 <Label htmlFor='name'>Name</Label>
