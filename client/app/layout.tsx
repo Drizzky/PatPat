@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/app/globals.css';
 import Footer from '../components/ui/FooterComponent';
+import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
     title: 'Pat²',
@@ -18,6 +19,7 @@ export default function RootLayout({
                 <main className='flex-1 flex items-center justify-center'>
                     {children}
                 </main>
+                <Toaster />
                 <Footer />
             </body>
         </html>
