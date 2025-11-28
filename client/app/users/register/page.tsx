@@ -24,8 +24,9 @@ const RegisterPage = () => {
         password,
       });
 
-      toast.success(res.data.message || 'Registered successfully!', {
+      toast(res.data.message || 'Registered successfully!', {
         id: 'register',
+        duration: 10000,
       });
     } catch (error: unknown) {
       let message = 'Something went wrong';
