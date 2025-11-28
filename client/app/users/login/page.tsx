@@ -9,7 +9,6 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 
 const LoginPage = () => {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -42,15 +41,11 @@ const LoginPage = () => {
       <Card>
         <CardHeader>
           <CardTitle className="text-center text-3xl">Pat²</CardTitle>
-          <CardDescription className="text-center">Sign up to share and see more Patsnaps!</CardDescription>
+          <CardDescription className="text-center">Login to share and see more Patsnaps!</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="m-10">
             <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" type="name" placeholder="John Doe" value={name} onChange={(e) => setName(e.target.value)} required />
-              </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="email">Email</Label>
@@ -64,16 +59,16 @@ const LoginPage = () => {
                 <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               </div>
               <Button type="submit" className="w-full">
-                Sign up!
+                Login!
               </Button>
             </div>
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
           <div className="mt-4 text-center text-sm">
-            <span>Already have an account?</span>
+            <span>Don't have an account?</span>
             <Link href="/users/register" className="underline underline-offset-4 pl-2">
-              Log in
+              Sign Up
             </Link>
           </div>
         </CardFooter>
