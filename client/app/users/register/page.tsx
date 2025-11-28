@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -36,6 +37,7 @@ const RegisterPage = () => {
       toast.error(message, { id: 'register' });
     }
   };
+
   return (
     <div>
       <Card>
@@ -54,7 +56,7 @@ const RegisterPage = () => {
                 <div className="flex items-center">
                   <Label htmlFor="email">Email</Label>
                 </div>
-                <Input id="email" type="email" placeholder="meow@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                <Input id="email" type="email" placeholder="meow@patpat.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
@@ -70,10 +72,10 @@ const RegisterPage = () => {
         </CardContent>
         <CardFooter className="flex-col gap-2">
           <div className="mt-4 text-center text-sm">
-            Already have an account?
-            <a href="#" className="underline underline-offset-4">
-              {''} Log in
-            </a>
+            <span>Already have an account?</span>
+            <Link href="/users/register" className="underline underline-offset-4 pl-2">
+              Log in
+            </Link>
           </div>
         </CardFooter>
       </Card>
