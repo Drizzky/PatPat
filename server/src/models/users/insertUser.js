@@ -47,7 +47,7 @@ const insertUser = async (body) => {
   We are excited to have you onboard.
   To activate your account and start sharing your beautiful pets, click on the link below:
 
-  ${process.env.CLIENT_URL}/verify-email/${token}
+  ${process.env.CLIENT_URL}/users/verify-email/${token}
   `;
 
   await sendMail(email, emailSubject, emailBody);
