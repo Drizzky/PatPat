@@ -6,6 +6,8 @@ const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
 const transport = nodemailer.createTransport({
   host: SMTP_HOST,
   port: SMTP_PORT,
+  secure: false, // no SSL/TLS on connection
+  ignoreTLS: true, // do not upgrade connection to TLS (disable STARTTLS)
   auth: {
     user: SMTP_USER,
     pass: SMTP_PASS,
