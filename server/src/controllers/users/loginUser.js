@@ -51,11 +51,17 @@ const loginUser = async (req, res, next) => {
     // token válido 7 días
     await insertLoginAttempt(user.id, token, 'NOW() + INTERVAL 7 DAY', 'ok');
 
-    res.status(200);
-    res.send({
+    res.status(200).send({
       status: 'ok',
       message: 'Welcome! 😻',
-      token: token,
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        idHome: user.idHome,
+      },
     });
   } catch (err) {
     next(err);

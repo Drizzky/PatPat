@@ -19,7 +19,7 @@ const ValidatePage = () => {
         toast.success(res.data.message || 'Registered successfully! Please log in', {
           id: 'register',
         });
-        console.log('YOU LOGGED IN MAFKA');
+        router.push('/users/login');
       } catch (error: unknown) {
         let message = 'Something went wrong';
 
@@ -28,7 +28,6 @@ const ValidatePage = () => {
         }
 
         toast.warning(message, { id: 'register' });
-        router.push('/');
       }
     };
     fetchValidateUser();

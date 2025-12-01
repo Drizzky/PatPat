@@ -1,30 +1,47 @@
 'use client';
 import { useState } from 'react';
-import axios from 'axios';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import Link from 'next/link';
+import axios from 'axios';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      const res = await axios.post(`${apiUrl}/api/users/login`, {
+      const res = await signIn('credentials', {
+        redirect: false,
         email,
         password,
       });
 
-      toast.success(res.data.message || 'Registered successfully!', {
-        id: 'register',
-      });
+      if (res?.error) {
+        let message = res.error;
+
+        if (axios.isAxiosError(res.error)) {
+          message = res.error.response?.data?.message || res.error.message || res.error;
+        }
+
+        toast.error(message, { id: 'login' });
+      } else {
+        toast.success('Logged in successfully!', { id: 'login', duration: 10000 });
+
+        setTimeout(() => {
+          router.push('/');
+        }, 500);
+      }
     } catch (error: unknown) {
       let message = 'Something went wrong';
 
@@ -32,43 +49,43 @@ const LoginPage = () => {
         message = error.response?.data?.message || error.message || message;
       }
 
-      toast.error(message, { id: 'register' });
+      toast.error(message, { id: 'login' });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <Card>
+    <div className="flex min-h-screen items-center justify-center">
+      <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="text-center text-3xl">Pat²</CardTitle>
           <CardDescription className="text-center">Login to share and see more Patsnaps!</CardDescription>
         </CardHeader>
+
         <CardContent>
-          <form onSubmit={handleSubmit} className="m-10">
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="email">Email</Label>
-                </div>
-                <Input id="email" type="email" placeholder="meow@patpat.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
-              </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                </div>
-                <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-              </div>
-              <Button type="submit" className="w-full">
-                Login!
-              </Button>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" placeholder="meow@patpat.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
             </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            </div>
+
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? 'Logging in...' : 'Login'}
+            </Button>
           </form>
         </CardContent>
+
         <CardFooter className="flex-col gap-2">
           <div className="mt-4 text-center text-sm">
-            <span>Don't have an account?</span>
+            <span>{"Don't have an account?"}</span>
             <Link href="/users/register" className="underline underline-offset-4 pl-2">
-              Sign Up
+              Sign Up!
             </Link>
           </div>
         </CardFooter>
