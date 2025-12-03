@@ -35,7 +35,6 @@ const LoginPage = () => {
 
       toast.success('Welcome', {
         id: 'login',
-        duration: 10000,
       });
 
       router.push('/');

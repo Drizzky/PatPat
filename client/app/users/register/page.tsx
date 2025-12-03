@@ -41,7 +41,6 @@ const RegisterPage = () => {
         duration: 10000,
       });
 
-      // Small delay to let the toast show before redirect
       setTimeout(() => {
         router.push('/');
       }, 500);

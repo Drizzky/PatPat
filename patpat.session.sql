@@ -1,1 +1,2 @@
-INSERT INTO COLORS 
+
+SELECT * FROM users_log

@@ -54,13 +54,13 @@ const loginUser = async (req, res, next) => {
     res.status(200).send({
       status: 'ok',
       message: 'Welcome! 😻',
-      token,
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
         idHome: user.idHome,
+        token: token,
       },
     });
   } catch (err) {

@@ -24,6 +24,9 @@ const Home = () => {
           {session ? (
             <>
               <Button onClick={() => signOut()}>Logout</Button>
+              <Link href="/users/home">
+                <Button>Create Home</Button>
+              </Link>
             </>
           ) : (
             <Link href="/users/login">
