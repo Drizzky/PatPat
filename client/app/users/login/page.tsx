@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 import axios from 'axios';
 
+//TODO ERROR HANDLER JEEEESUUUSSS
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,20 +29,16 @@ const LoginPage = () => {
       });
 
       if (res?.error) {
-        let message = res.error;
-
-        if (axios.isAxiosError(res.error)) {
-          message = res.error.response?.data?.message || res.error.message || res.error;
-        }
-
-        toast.error(message, { id: 'login' });
-      } else {
-        toast.success('Logged in successfully!', { id: 'login', duration: 10000 });
-
-        setTimeout(() => {
-          router.push('/');
-        }, 500);
+        toast.error(res.error, { id: 'login' });
+        return;
       }
+
+      toast.success('Welcome', {
+        id: 'login',
+        duration: 10000,
+      });
+
+      router.push('/');
     } catch (error: unknown) {
       let message = 'Something went wrong';
 

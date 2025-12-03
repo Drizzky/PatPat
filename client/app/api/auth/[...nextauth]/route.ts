@@ -22,11 +22,9 @@ const handler = NextAuth({
           const { user, message } = res.data;
 
           if (!res.data || !user) {
-            // Pass backend message if available
             throw new Error(message || 'Invalid credentials');
           }
 
-          // Return user object for NextAuth
           return user;
         } catch (error: unknown) {
           let message = 'Login failed';
@@ -36,17 +34,16 @@ const handler = NextAuth({
             message = axiosError.response?.data?.message || axiosError.message || message;
           }
 
-          // Throw error so NextAuth sets res.error
           throw new Error(message);
         }
       },
     }),
   ],
   session: {
-    strategy: 'jwt', // use JWT sessions
+    strategy: 'jwt',
   },
   pages: {
-    signIn: '/users/login', // your login page
+    signIn: '/users/login',
   },
 });
 
