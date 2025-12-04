@@ -17,14 +17,15 @@ const CreateHomePage = () => {
   const { data: session } = useSession();
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const token = session?.user?.token;
+  const { update } = useSession();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     if (!session) {
-      toast.error('You must be logged in to create a home.');
       router.push('/users/login');
+      toast.error('You must be logged in to create a home.');
     }
     try {
       const res = await axios.post(
@@ -39,11 +40,13 @@ const CreateHomePage = () => {
         }
       );
 
-      console.log(res);
-
-      toast.success('Home created successfully', {
+      toast.success(res.data.message, {
         id: 'Home',
       });
+
+      await update();
+
+      router.push(`/home/${session?.user.idHome}`);
     } catch (error: unknown) {
       let message = 'Something went wrong';
 
@@ -62,17 +65,22 @@ const CreateHomePage = () => {
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="text-center text-3xl">Pat²</CardTitle>
-          <CardDescription className="text-center">Create your home</CardDescription>
+          <CardDescription className="text-center">Every pet needs a home, add yours!</CardDescription>
         </CardHeader>
 
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div className="grid gap-2">
-              <Label htmlFor="Home name">name</Label>
+              <Label htmlFor="Home name">Name</Label>
               <Input id="name" type="name" placeholder="Pat² Palace" value={homeName} onChange={(e) => setHomeName(e.target.value)} required />
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading}>
+            <div className="grid w-full max-w-64 items-center gap-1.5">
+              <Label htmlFor="picture">Banner</Label>
+              <Input id="picture" type="file" />
+            </div>
+
+            <Button type="submit" disabled={loading}>
               {loading ? 'Creating your Home...' : 'Create Home'}
             </Button>
           </form>

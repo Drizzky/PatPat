@@ -15,25 +15,52 @@ const Home = () => {
       <p className="text-gray-600 mb-6">Test out API shit down below.</p>
 
       <ul className="flex justify-center gap-2 w-full">
-        <li>
-          <Link href="/users/register">
-            <Button>Sign up!</Button>
-          </Link>
-        </li>
-        <li>
-          {session ? (
-            <>
-              <Button onClick={() => signOut()}>Logout</Button>
-              <Link href="/users/home">
-                <Button>Create Home</Button>
-              </Link>
-            </>
-          ) : (
+        {!session && (
+          <li>
+            <Link href="/users/register">
+              <Button>Sign up!</Button>
+            </Link>
+          </li>
+        )}
+        {!session && (
+          <li>
             <Link href="/users/login">
               <Button>Log in</Button>
             </Link>
-          )}
-        </li>
+          </li>
+        )}
+
+        {/* Logged in */}
+        {session && (
+          <>
+            {!session.user.idHome && (
+              <li>
+                <Link href="/users/home/create">
+                  <Button>Create Home</Button>
+                </Link>
+              </li>
+            )}
+            {session.user.idHome && (
+              <>
+                <li>
+                  <Link href={`/home/${session.user.idHome}`}>
+                    <Button>Home</Button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href={`/home/edit/${session.user.idHome}`}>
+                    <Button>Edit Home</Button>
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {/* Logout */}
+            <li>
+              <Button onClick={() => signOut()}>Logout</Button>
+            </li>
+          </>
+        )}
       </ul>
     </div>
   );

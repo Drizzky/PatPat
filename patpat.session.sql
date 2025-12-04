@@ -1,2 +1,1 @@
-
-SELECT * FROM users_log
+select * from homes

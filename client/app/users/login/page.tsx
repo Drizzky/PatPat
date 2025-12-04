@@ -11,6 +11,7 @@ import Link from 'next/link';
 import axios from 'axios';
 
 //TODO ERROR HANDLER JEEEESUUUSSS
+// doesnt show correct errors.
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

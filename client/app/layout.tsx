@@ -9,7 +9,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex flex-col min-h-screen">
         <ClientProviders>
           <main className="flex-1 flex items-center justify-center">{children}</main>
-          <Toaster />
+          <Toaster position="top-center" />
         </ClientProviders>
         <Footer />
       </body>
