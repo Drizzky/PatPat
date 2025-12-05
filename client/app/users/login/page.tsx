@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,34 +8,27 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import Link from 'next/link';
 import axios from 'axios';
+import { useAuth } from '../../hooks/useAuth';
 
-//TODO ERROR HANDLER JEEEESUUUSSS
-// doesnt show correct errors.
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { authLoginState } = useAuth();
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const res = await signIn('credentials', {
-        redirect: false,
-        email,
-        password,
-      });
+      const res = await axios.post(`${apiUrl}/api/users/login`, { email, password });
 
-      if (res?.error) {
-        toast.error(res.error, { id: 'login' });
-        return;
-      }
+      // Store token and user in context
+      authLoginState(res.data.user.token, res.data.user);
 
-      toast.success('Welcome', {
-        id: 'login',
-      });
+      toast.success(res.data.message || 'Welcome!', { id: 'login' });
 
       router.push('/');
     } catch (error: unknown) {

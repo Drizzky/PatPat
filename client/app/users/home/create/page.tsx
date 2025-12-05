@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,54 +7,48 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
+import { useAuth } from '@/app/hooks/useAuth';
 
-//TODO ERROR HANDLER JEEEESUUUSSS
 const CreateHomePage = () => {
   const [homeName, setHomeName] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { data: session } = useSession();
+  const { authUser, authToken } = useAuth();
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const token = session?.user?.token;
-  const { update } = useSession();
+
+  useEffect(() => {
+    if (!authUser || !authToken) {
+      setTimeout(() => {
+        toast.error('You must be logged in to create a home.');
+        router.push('/users/login');
+      }, 100);
+    }
+  }, [authUser, authToken, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    if (!session) {
-      router.push('/users/login');
-      toast.error('You must be logged in to create a home.');
-    }
     try {
       const res = await axios.post(
         `${apiUrl}/api/users/home`,
-        {
-          name: homeName,
-        },
+        { name: homeName },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${authToken}`,
           },
         }
       );
 
-      toast.success(res.data.message, {
-        id: 'Home',
-      });
+      toast.success(res.data.message || 'Home created!', { id: 'Home' });
 
-      await update();
-
-      router.push(`/home/${session?.user.idHome}`);
+      router.push(`/home/${authUser.idHome}`);
     } catch (error: unknown) {
       let message = 'Something went wrong';
-
       if (axios.isAxiosError(error)) {
         message = error.response?.data?.message || error.message || message;
       }
-
-      toast.error(message);
+      toast.error(message, { id: 'Home' });
     } finally {
       setLoading(false);
     }
@@ -71,8 +65,8 @@ const CreateHomePage = () => {
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <div className="grid gap-2">
-              <Label htmlFor="Home name">Name</Label>
-              <Input id="name" type="name" placeholder="Pat² Palace" value={homeName} onChange={(e) => setHomeName(e.target.value)} required />
+              <Label htmlFor="homeName">Name</Label>
+              <Input id="homeName" type="text" placeholder="Pat² Palace" value={homeName} onChange={(e) => setHomeName(e.target.value)} required />
             </div>
 
             <div className="grid w-full max-w-64 items-center gap-1.5">
